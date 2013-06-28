@@ -16,6 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 	// capture callback
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        // do something interesting with the file
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+};
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -43,7 +57,15 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+		
+		
+// start image capture
+navigator.device.capture.captureImage(captureSuccess, captureError, {limit:2});
         console.log('Received Event: ' + id);
     }
+	
+
+
+// start image capture
+navigator.device.capture.captureImage(captureSuccess, captureError, {limit:2});
 };
