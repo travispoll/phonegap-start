@@ -30,6 +30,45 @@ var captureError = function(error) {
     navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
 };
 
+
+/////////////////////////////////////////////////////////
+var watchID = null;
+
+// Start watching the compass
+    //
+    function startWatch() {
+
+        // Update compass every 3 seconds
+        var options = { frequency: 3000 };
+
+        watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+    }
+	
+	
+	// Stop watching the compass
+    //
+    function stopWatch() {
+        if (watchID) {
+            navigator.compass.clearWatch(watchID);
+            watchID = null;
+        }
+    }
+	
+	function onSuccess(heading) {
+        var element = document.getElementById('heading');
+        element.innerHTML = 'Heading: ' + heading.magneticHeading;
+    }
+	
+	// onError: Failed to get the heading
+    //
+    function onError(compassError) {
+        alert('Compass error: ' + compassError.code);
+    }
+////////////////////////////////
+
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -47,7 +86,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        //app.receivedEvent('deviceready');
+		startWatch();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
