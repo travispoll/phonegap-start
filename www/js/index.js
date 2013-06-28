@@ -60,12 +60,7 @@ var app = {
 		
 		
 // start image capture
-navigator.device.capture.captureImage(captureSuccess, captureError, {limit:2});
+	navigator.device.capture.captureImage(captureSuccess, captureError, {limit:2});
         console.log('Received Event: ' + id);
     }
-	
-
-
-// start image capture
-navigator.device.capture.captureImage(captureSuccess, captureError, {limit:2});
 };
